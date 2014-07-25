@@ -129,8 +129,8 @@ def main(args=None):
 
     # Set up the weight values for the search query function.
     weights = {}
-    for default in [(key, 0) for key in DEFAULT_SEARCH_WEIGHTS]:
-        weights.setdefault(*default)
+    for key, value in DEFAULT_SEARCH_WEIGHTS.items():
+        weights.setdefault(key, value)
 
     # Build a list of queryies with normalized versions of the query
     # and the filename where the cached query will live.
