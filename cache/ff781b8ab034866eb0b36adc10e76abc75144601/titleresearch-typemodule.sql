@@ -55,7 +55,7 @@ FROM
 -- ###
 SELECT
   module_ident,
-  count(*)*0 as weight,
+  count(*)*10 as weight,
   semilist(key) as keys
 FROM (
   SELECT

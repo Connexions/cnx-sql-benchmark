@@ -84,7 +84,7 @@ UNION ALL
 -- ###
 SELECT
   module_ident,
-  count(*)*0 as weight,
+  count(*)*5 as weight,
   semilist(key) as keys
 FROM (
   SELECT
@@ -113,7 +113,7 @@ UNION ALL
 -- ###
 SELECT
   module_ident,
-  count(*)*0 as weight,
+  count(*)*10 as weight,
   semilist(key) as keys
 FROM (
   SELECT
@@ -142,7 +142,7 @@ UNION ALL
 -- ###
 SELECT
   module_ident,
-  count(*)*0 as weight,
+  count(*)*1 as weight,
   semilist(key) as keys
 FROM (
   SELECT
@@ -179,7 +179,7 @@ UNION ALL
 -- ###
 SELECT
   module_ident,
-  count(*)*0 as weight,
+  count(*)*1 as weight,
   semilist(key) as keys
 FROM (
   SELECT
@@ -214,7 +214,7 @@ UNION ALL
 -- ###
 SELECT
   module_ident,
-  count(*)*0 as weight,
+  count(*)*10 as weight,
   semilist(key) as keys
 FROM (
   SELECT
@@ -255,7 +255,7 @@ UNION ALL
 -- ###
 SELECT
   module_ident,
-  count(*)*0 as weight,
+  count(*)*50 as weight,
   semilist(key) as keys
 FROM (
   SELECT
@@ -316,7 +316,7 @@ UNION ALL
 -- ###
 SELECT
   module_ident,
-  count(*)*0 as weight,
+  count(*)*20 as weight,
   semilist(key) as keys
 FROM (
   SELECT
@@ -385,7 +385,7 @@ UNION ALL
 -- ###
 SELECT
   module_ident,
-  count(*)*0 as weight,
+  count(*)*40 as weight,
   semilist(key) as keys
 FROM (
   SELECT
@@ -454,7 +454,7 @@ UNION ALL
 -- ###
 SELECT
   module_ident,
-  count(*)*0 as weight,
+  count(*)*10 as weight,
   semilist(key) as keys
 FROM (
   SELECT
@@ -515,7 +515,7 @@ UNION ALL
 -- ###
 SELECT
   module_ident,
-  count(*)*0 as weight,
+  count(*)*10 as weight,
   semilist(key) as keys
 FROM (
   SELECT
@@ -584,7 +584,7 @@ UNION ALL
 -- ###
 SELECT
   module_ident,
-  count(*)*0 as weight,
+  count(*)*100 as weight,
   semilist(key) as keys
 FROM (
   SELECT
@@ -613,7 +613,7 @@ UNION ALL
 -- ###
 SELECT
   module_ident,
-  count(*)*0 as weight,
+  count(*)*10 as weight,
   semilist(key) as keys
 FROM (
   SELECT
