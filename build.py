@@ -19,12 +19,14 @@ against an empty database, as long as the database has the cnx-archive
 schema initialized.
 
 Usage:
-  build.py <db_connection_string> <raw_query>... [--repo=<repo>]
+  build.py <db_connection_string> [--repo=<repo>]
+    [--from-data-set=<data-set> | <raw_query>... ]
 
 Options:
-  -h --help        This usage text.
-  --repo=<repo>    The local directory of the cnx-archive repository clone
-                   [default: ./cnx-archive]
+  -h --help                   This usage text.
+  --repo=<repo>               The local directory of the cnx-archive
+                              repository clone [default: ./cnx-archive]
+  --from-data-set=<data-set>  A previously built data-set file
 
 """
 from __future__ import print_function
@@ -107,12 +109,30 @@ def _produce_data_file(cache_dir, query_items):
         json.dump(data_set, fb)
 
 
+def _item_data_from_queries(queries):
+    # Build a list of queryies with normalized versions of the query
+    # and the filename where the cached query will live.
+    query_items = []
+    for query in queries:
+        normalized_query = normalize_string(query)
+        filename = "{}.sql".format(normalized_query)
+        query_items.append((query, normalized_query, filename,))
+    return query_items
+
+
 def main(args=None):
     """Cache the SQL statements"""
     parsed_args = docopt(__doc__, argv=args)
     cnxarchive_loc = parsed_args['--repo']
     db_conn_string = parsed_args['<db_connection_string>']
-    queries = parsed_args['<raw_query>']
+    existing_data_set = parsed_args.get('--from-data-set')
+    if existing_data_set is None:
+        queries = parsed_args['<raw_query>']
+        query_items = _item_data_from_queries(queries)
+    else:
+        with open(existing_data_set, 'r') as fb:
+            data_set = json.load(fb)
+        query_items = data_set['data']
 
     # Acquire the cnx-archive revision as the cache directory name.
     repo = git.Repo(cnxarchive_loc)
@@ -131,14 +151,6 @@ def main(args=None):
     weights = {}
     for key, value in DEFAULT_SEARCH_WEIGHTS.items():
         weights.setdefault(key, value)
-
-    # Build a list of queryies with normalized versions of the query
-    # and the filename where the cached query will live.
-    query_items = []
-    for query in queries:
-        normalized_query = normalize_string(query)
-        filename = "{}.sql".format(normalized_query)
-        query_items.append((query, normalized_query, filename,))
 
     # Build the statements one at a time.
     with psycopg2.connect(db_conn_string) as conn:
